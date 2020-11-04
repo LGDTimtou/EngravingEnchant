@@ -30,7 +30,6 @@ import net.md_5.bungee.api.ChatColor;
 public class EventListener implements Listener {
 	
 	ItemStack result = null;
-	Boolean is2books;
 	
 	public static boolean checkEngraved(ItemStack item) {
 		
@@ -269,12 +268,7 @@ public class EventListener implements Listener {
 		event.setResult(newitem);
 		
 		result = event.getResult();
-		if (result.getType() == Material.ENCHANTED_BOOK && (item1engraved || item2engraved)) {
-			event.setResult(new ItemStack(Material.AIR));
-			is2books = true;
-			return;
-		}
-		is2books = false;
+
 		return;
 			 
 		
@@ -303,7 +297,9 @@ public class EventListener implements Listener {
 		
 		if (slot != 2)
 			return;
-		if (is2books) {
+		
+		if (item1.getType() == Material.ENCHANTED_BOOK && item2.getType() == Material.ENCHANTED_BOOK && (checkEngraved(item1) || checkEngraved(item2))) {
+
 			Inventory inv2 = event.getView().getBottomInventory();
 			
 			if (inv2.firstEmpty() == -1) {

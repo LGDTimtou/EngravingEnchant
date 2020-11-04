@@ -28,7 +28,7 @@ BooksErrorMessage: "&cCannot combine books if one contains Engraved"
 NoPermissionMessage: "&cYou don't have permission to use this command"
 NotEngravedMessage: "&cItem is not engraved"
 NoPlayersMessage: "&cThis item contains no killed players"
-UsageMessage: "&fUsage: /engrave <itemtype/add> (<player_name>)"
+UsageMessage: "&fUsage: /engrave <itemtype/add/list> (<player_name>)"
 
 
             #Colors#

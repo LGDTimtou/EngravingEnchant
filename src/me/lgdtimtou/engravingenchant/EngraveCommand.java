@@ -116,7 +116,6 @@ public class EngraveCommand implements CommandExecutor{
 			int index = strlore.indexOf("Killed: ");
 			if (index == -1) {
 				player.sendMessage(Utilities.getConfigString("NoPlayersMessage"));
-				player.sendMessage(strlore);
 				return false;
 			}
 			String strloresub = strlore.substring(index, strlore.length() - 2);
