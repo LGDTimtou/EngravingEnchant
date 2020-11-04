@@ -1,0 +1,14 @@
+name: EngravingEnchant
+version: 1.0.0
+main: me.lgdtimtou.engravingenchant.Main
+api-version: 1.16
+
+commands: 
+   engrave:
+      aliases: en
+      permissions: 
+         engrave.command.add:
+         engrave.command.list:
+         engrave.command.itemtype:
+         
+   

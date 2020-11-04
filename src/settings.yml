@@ -1,0 +1,36 @@
+##########################################
+#                                        #  
+#                                        #
+#          Engraving Enchantment         #
+#                                        #
+#                                        #
+##########################################
+
+
+            #README#
+#NEVER MODIFY OR REMOVE ANYTHING IN "data.yml"!
+#NEVER REMOVE "data.yml" ONLY IF YOU WANT TO RESET ALL STORED DATA!
+#BE AWARE THAT THIS WILL NOT RESET ANY ENGRAVED DATA ON ITEMS!
+
+
+            #Settings#
+ParticlesEnabled: true
+
+
+            #Messages#
+MaxNameMessage: "&cThe maximum amount of names have been reached"
+InvalidTypeMessage: "&cInvalid material type"
+InventoryFullMessage: "&cInventory full"
+NoItemMessage: "&cNot holding an item"
+AlreadyEngravedMessage: "&cItem already engraved"
+PlayerOfflineMessage: "&cPlayer not found"
+BooksErrorMessage: "&cCannot combine books if one contains Engraved"
+NoPermissionMessage: "&cYou don't have permission to use this command"
+NotEngravedMessage: "&cItem is not engraved"
+NoPlayersMessage: "&cThis item contains no killed players"
+UsageMessage: "&fUsage: /engrave <itemtype/add> (<player_name>)"
+
+
+            #Colors#
+EngravedPeopleColor: "&f"
+EngravedListColor: "&f"
