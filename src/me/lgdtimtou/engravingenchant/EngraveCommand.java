@@ -67,14 +67,20 @@ public class EngraveCommand implements CommandExecutor{
 				}
 						
 			}
-			target.getInventory().removeItem(olditem);
-			ItemStack item;
+			ItemStack item = null;
 			if (itemmaterial == Material.BOOK) {
 				item = new ItemStack(Material.ENCHANTED_BOOK);
+				item.addEnchantments(olditem.getEnchantments());
 			} 
+			else if (itemmaterial == Material.ENCHANTED_BOOK) {
+				player.sendMessage(Utilities.getConfigString("EngravedAddEnchantedBookMessage"));
+				return false;
+			}
 			else {
 				item = new ItemStack(itemmaterial);
+				item.addEnchantments(olditem.getEnchantments());
 			}
+			target.getInventory().removeItem(olditem);
 			item.addUnsafeEnchantment(EngravingEnchant.ENGRAVING, 1);
 				
 				
@@ -88,6 +94,7 @@ public class EngraveCommand implements CommandExecutor{
 				for (String l : oldmeta.getLore())
 					lore.add(l);
 			newmeta.setLore(lore);
+			newmeta.setDisplayName(oldmeta.getDisplayName());
 			item.setItemMeta(newmeta);
 				
 	
