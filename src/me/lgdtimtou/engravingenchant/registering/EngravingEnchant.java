@@ -1,4 +1,4 @@
-package me.lgdtimtou.engravingenchant;
+package me.lgdtimtou.engravingenchant.registering;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

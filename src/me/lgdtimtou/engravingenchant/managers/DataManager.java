@@ -1,4 +1,4 @@
-package me.lgdtimtou.engravingenchant;
+package me.lgdtimtou.engravingenchant.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,8 @@ import java.util.logging.Level;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import me.lgdtimtou.engravingenchant.Main;
 
 public class DataManager {
 	private Main plugin;

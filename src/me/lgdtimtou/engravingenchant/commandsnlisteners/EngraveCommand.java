@@ -1,4 +1,4 @@
-package me.lgdtimtou.engravingenchant;
+package me.lgdtimtou.engravingenchant.commandsnlisteners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.lgdtimtou.engravingenchant.Main;
+import me.lgdtimtou.engravingenchant.Utilities;
+import me.lgdtimtou.engravingenchant.registering.EngravingEnchant;
 import net.md_5.bungee.api.ChatColor;
 
 public class EngraveCommand implements CommandExecutor{
-
 
 	
 	@Override
@@ -60,7 +62,7 @@ public class EngraveCommand implements CommandExecutor{
 			Material itemmaterial = target.getInventory().getItemInMainHand().getType();
 			if (oldmeta.hasLore()) {
 				for (String str : oldmeta.getLore()) {
-					if (str.contains("Engraved")) {
+					if (str.contains(Main.enchantName)) {
 						player.sendMessage(Utilities.getConfigString("AlreadyEngravedMessage"));
 						return false;
 					}
@@ -89,7 +91,7 @@ public class EngraveCommand implements CommandExecutor{
 	
 				
 				
-			lore.add(ChatColor.GRAY + "Engraved");
+			lore.add(ChatColor.GRAY + Main.enchantName);
 			if (oldmeta.hasLore())
 				for (String l : oldmeta.getLore())
 					lore.add(l);
@@ -114,13 +116,13 @@ public class EngraveCommand implements CommandExecutor{
 			ItemStack item = target.getInventory().getItemInMainHand();
 			ItemMeta meta = item.getItemMeta();
 
-			if (!EventListener.checkEngraved(item) || !meta.hasLore()) {
+			if (!Utilities.checkEngraved(item) || !meta.hasLore()) {
 				player.sendMessage(Utilities.getConfigString("NotEngravedMessage"));
 				return false;
 			}
 			List<String> lore = meta.getLore();
 			String strlore = Utilities.stringBuilder(lore);
-			int index = strlore.indexOf("Killed: ");
+			int index = strlore.indexOf(Main.killedPrefix);
 			if (index == -1) {
 				player.sendMessage(Utilities.getConfigString("NoPlayersMessage"));
 				return false;
@@ -142,7 +144,7 @@ public class EngraveCommand implements CommandExecutor{
 		try {
 			item = new ItemStack(Material.getMaterial(material.toUpperCase()));
 		} catch (Exception e) {
-			player.sendMessage(Utilities.getConfigString("InvalidTypeMessage"));
+			player.sendMessage(Utilities.getConfigString("InvalidArgumentsMessage"));
 			return false;
 		}
 		item.addUnsafeEnchantment(EngravingEnchant.ENGRAVING, 1);
@@ -153,7 +155,7 @@ public class EngraveCommand implements CommandExecutor{
 
 			
 			
-		lore.add(ChatColor.GRAY + "Engraved");
+		lore.add(ChatColor.GRAY + Main.enchantName);
 		if (meta.hasLore())
 			for (String l : meta.getLore())
 					lore.add(l);

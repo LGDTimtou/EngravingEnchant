@@ -15,11 +15,13 @@
 
             #Settings#
 ParticlesEnabled: true
+EnchantName: "Engraved"   #Default: "Engraved"
+KilledNamesPrefix: "Killed: "   #Default: "Killed: "
 
 
             #Messages#
 MaxNameMessage: "&cThe maximum amount of names have been reached"
-InvalidTypeMessage: "&cInvalid material type"
+InvalidArgumentsMessage: "&cInvalid arguments"
 InventoryFullMessage: "&cInventory full"
 NoItemMessage: "&cNot holding an item"
 AlreadyEngravedMessage: "&cItem already engraved"

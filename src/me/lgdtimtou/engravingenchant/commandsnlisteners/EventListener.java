@@ -1,4 +1,4 @@
-package me.lgdtimtou.engravingenchant;
+package me.lgdtimtou.engravingenchant.commandsnlisteners;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +23,9 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import me.lgdtimtou.engravingenchant.Main;
+import me.lgdtimtou.engravingenchant.Utilities;
+import me.lgdtimtou.engravingenchant.registering.EngravingEnchant;
 import net.md_5.bungee.api.ChatColor;
 
 
@@ -30,26 +33,12 @@ import net.md_5.bungee.api.ChatColor;
 public class EventListener implements Listener {
 	
 	ItemStack result = null;
+	Main plugin;
 	
-	public static boolean checkEngraved(ItemStack item) {
-		
-		try {
-			List<String> lore = item.getItemMeta().getLore();
-			for (String str : lore) {
-				if (str.contains("Engraved"))
-					return true;
-			}
-			return false;
-		} catch (Exception e)
-		{
-			return false;
-		}
+	public EventListener(Main plugin) {
+		this.plugin = plugin;
 	}
-	
 
-
-
-	
 	@EventHandler
 	public void onPlayerKilled (PlayerDeathEvent event) {
 		if (event.getEntity().getKiller() instanceof Player && event.getEntity() instanceof Player) {
@@ -73,15 +62,15 @@ public class EventListener implements Listener {
 			String strlore = Utilities.stringBuilder(lore);
 
 			try {
-				value = (char)(Main.getMain().data.getConfig().getInt("Players." + killer.getUniqueId() + ".Item: " + item.getType().toString() + ".Killed." + killed.getName()) + 1);
+				value = (char)(plugin.data.getConfig().getInt("Players." + killer.getUniqueId() + ".Item: " + item.getType().toString() + ".Killed." + killed.getName()) + 1);
 			} catch (Exception e) {
 				value = 1;
 			}
-			Main.getMain().data.getConfig().set("Players." + killer.getUniqueId() + ".Item: " + item.getType().toString() + ".Killed." + killed.getName() , value);	
-			Main.getMain().data.saveConfig();
+			plugin.data.getConfig().set("Players." + killer.getUniqueId() + ".Item: " + item.getType().toString() + ".Killed." + killed.getName() , value);	
+			plugin.data.saveConfig();
 			
 			World world = killer.getWorld();
-			if (Main.getMain().settings.getConfig().getBoolean("ParticlesEnabled")) {
+			if (plugin.settings.getConfig().getBoolean("ParticlesEnabled")) {
 				new BukkitRunnable() {
 		            int i = 0;
 		            int degree = 0;
@@ -106,7 +95,7 @@ public class EventListener implements Listener {
 		                degree = degree + 18;
 		                i++;
 		            }
-		        }.runTaskTimer(Main.getMain(), 0L, 1L);
+		        }.runTaskTimer(plugin, 0L, 1L);
 			}
 					
 				
@@ -117,10 +106,9 @@ public class EventListener implements Listener {
 			
 			
 			
-			if (!(strlore.toLowerCase().indexOf("killed: ") >= 0)) {
-				 
+			if (!(strlore.contains(Main.killedPrefix))) {
 				lore.add("");
-				lore.add(Utilities.getConfigString("EngravedPeopleColor") + "Killed: " + killed.getDisplayName() + " " + value);
+				lore.add(Utilities.getConfigString("EngravedPeopleColor") + Main.killedPrefix + killed.getDisplayName() + " " + value);
 				meta.setLore(lore);
 				item.setItemMeta(meta);
 				return;
@@ -155,7 +143,7 @@ public class EventListener implements Listener {
 				
 			}
 			
-			String prelore = strlore.substring(0, strlore.indexOf("Killed"));
+			String prelore = strlore.substring(0, strlore.indexOf(Main.killedPrefix));
 			int lenghtprelore = prelore.length();
 			
 			if (strlore.length() >= (lenghtprelore + 35) && strlore.length() <= (lenghtprelore + 45)) {
@@ -209,8 +197,8 @@ public class EventListener implements Listener {
 			return;
 		ItemStack item1 = inv.getItem(0);
 		ItemStack item2 = inv.getItem(1);
-		Boolean item1engraved = checkEngraved(item1);
-		Boolean item2engraved = checkEngraved(item2);
+		Boolean item1engraved = Utilities.checkEngraved(item1);
+		Boolean item2engraved = Utilities.checkEngraved(item2);
 		
 		if (item1engraved && item2engraved) 
 			return;
@@ -252,7 +240,7 @@ public class EventListener implements Listener {
 
 		
 		if (!item1engraved)
-			newlore.add(ChatColor.GRAY + "Engraved");
+			newlore.add(ChatColor.GRAY + Main.enchantName);
 		
 	
 		if (oldmeta.hasLore())
@@ -298,7 +286,7 @@ public class EventListener implements Listener {
 		if (slot != 2)
 			return;
 		
-		if (item1.getType() == Material.ENCHANTED_BOOK && item2.getType() == Material.ENCHANTED_BOOK && (checkEngraved(item1) || checkEngraved(item2))) {
+		if (item1.getType() == Material.ENCHANTED_BOOK && item2.getType() == Material.ENCHANTED_BOOK && (Utilities.checkEngraved(item1) || Utilities.checkEngraved(item2))) {
 
 			Inventory inv2 = event.getView().getBottomInventory();
 			

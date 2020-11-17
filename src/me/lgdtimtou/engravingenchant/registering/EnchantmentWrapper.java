@@ -1,4 +1,4 @@
-package me.lgdtimtou.engravingenchant;
+package me.lgdtimtou.engravingenchant.registering;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
